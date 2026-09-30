@@ -1,6 +1,6 @@
 ---
 name: hatching-onboarding
-description: "Onboards a new user through a conversational 'hatching' process: learns who they are, names the assistant, sets preferences, defines goals, designs daily cadences, and establishes self-improvement loops for both user and assistant."
+description: "Onboards a new user through a conversational 'hatching' process: learns who they are, names the assistant, sets preferences, defines goals, designs daily cadences, and establishes self-improvement loops. Includes an upgrade path for existing users to activate companion skills (cognitive loops, communication wrapper, priority triage, AI audit)."
 metadata:
   compatible-agents: genie
 ---
@@ -455,6 +455,145 @@ persona/
 
 ---
 
+## Cross-References
+
+### Companion Skills (ship alongside hatching)
+- **cognitive-loop-system** — Three-layer scheduled task architecture. Hatching gathers the context; this skill puts it to work 24/7. Offered during Phase 5c or after the user sees interactive value.
+- **audit-ai-output** — Quality framework for AI-generated documents. Grades on declared scope, applies human-reality checks. Useful for users who work with AI-generated content regularly.
+
+### Capabilities Built by Hatching (created per-user, not pre-built)
+- **communication-wrapper** — Persona consistency layer built from Phase 4 context. The assistant creates this as a personal skill using the user's specific style rules, tone preferences, and pet peeves. The zone classification architecture is the pattern; the rules are the user's.
+- **priority-triage** — On-demand focus tool built from Phase 3 + Phase 5 context. The assistant creates this as a personal skill using the user's specific project tracker, priority hierarchy, and source map. The gather/verify/rank methodology is the pattern; the sources and rules are the user's.
+
+---
+
+## The Skill Ecosystem: What Comes After Hatching
+
+Hatching is the foundation. It gathers identity, priorities, style, and rhythm. Two companion skills ship alongside it:
+
+- **cognitive-loop-system** — Three-layer scheduled task architecture (briefings, thinking, dreaming). Offered during Phase 5c. Turns the assistant into an always-on cognitive system.
+- **audit-ai-output** — Framework for auditing AI-generated documents. Grades on declared scope, classifies findings by actionability, applies human-reality checks. Useful for anyone who works with AI-generated content.
+
+Beyond these, the hatching process can *build* two additional capabilities directly for the user. These aren't pre-built skills to install. They require personal context that only emerges from the hatching conversation itself, so the assistant creates them from scratch, tailored to the user's world.
+
+### Capabilities the Assistant Builds (Not Installs)
+
+#### Communication Wrapper (Built During Phase 4)
+
+Once the user establishes their persona, communication style, and tone preferences in Phase 4, the assistant should build a **communication consistency layer** as a personal skill. This skill ensures the persona stays consistent across every response type.
+
+**What to build for the user:**
+
+1. **Zone classification rules** — Teach the assistant to detect what kind of response it's generating:
+   - Casual/conversational (banter, status updates, brainstorming)
+   - Content production for external audiences (blog posts, presentations, thought leadership)
+   - Content production for internal audiences (proposals, process docs, reports)
+   - Instructional/procedural (how-to guides, runbooks)
+   - Analytical/data (metrics, findings, dashboards)
+
+2. **Style rules per zone** — Pull from the user's stated preferences in Phase 4:
+   - What tone did they pick? Apply it to casual zones.
+   - Do they write for external audiences? Capture their voice for content production zones.
+   - Do they have pet peeves? (e.g., "never use em dashes," "no corporate jargon") Make those hard rules.
+
+3. **Self-check loop** — After generating any response, scan for violations of the user's stated rules before delivering.
+
+**How to offer it:**
+
+> "Now that I know your style, I can build a consistency layer that makes sure I always sound like [persona name], whether I'm texting you a quick update or drafting a blog post. Want me to set that up?"
+
+Save the result as a personal skill called `communication-wrapper` with the user's specific rules baked in. The *architecture* (zone classification + per-zone rules + self-check) is the pattern. The *content* (which rules, which voice, which pet peeves) comes from the user.
+
+#### Priority Triage (Built During Phase 3 + Phase 5)
+
+Once the user has established their priorities (Phase 3) and daily rhythm (Phase 5), the assistant should build an **on-demand priority triage capability** as a personal skill. This gives the user a "what should I focus on next?" command that cross-references everything.
+
+**What to build for the user:**
+
+1. **Source map** — Where does the user track their work? Ask during Phase 3:
+   - Do they have a project tracker? (Google Doc, Notion, Jira board, spreadsheet) Get the reference.
+   - Where do action items land? (Email, Slack, meeting notes, a specific tool)
+   - Who assigns their priorities? (Their manager, themselves, a team process)
+
+2. **Gather phase** — The triage pulls from all connected sources in parallel:
+   - The user's project tracker (whatever format it's in)
+   - Calendar (next 2-3 days, with response status tiering if configured)
+   - Email (unread from last 3 days, focused on action-requested items)
+   - Messaging platforms (mentions, unanswered questions, threads they started)
+   - Document sources (recently shared or updated files relevant to their projects)
+
+3. **Verify phase** — For every open item from the project tracker:
+   - Search for evidence it's been completed or progressed
+   - Mark items as: ✅ Done (with evidence), 🔄 In Progress, 🔴 Not Started, ⏳ Blocked
+   - When the user claims something is done, verify it. Find the message, the doc, the email.
+
+4. **Rank phase** — Prioritize remaining items by:
+   - Due today or overdue (always first)
+   - Blocking others
+   - Manager-assigned priorities
+   - Follow-ups with deadlines
+   - Side projects with momentum
+   - Low-urgency / research phase
+
+**How to offer it:**
+
+> "You've told me about your projects and who assigns your priorities. I can build a triage system that cross-references your tracker, calendar, email, and Slack to tell you exactly what needs focus next. It even verifies when things are actually done instead of just taking your word for it. Want me to set that up?"
+
+Save the result as a personal skill called `priority-triage` with the user's specific source map, priority hierarchy, and verification rules. The *methodology* (gather/verify/rank) is the pattern. The *specifics* (which tracker, which manager, which channels) come from the user.
+
+### Progressive Activation
+
+Not every user needs every capability on day one. Introduce them progressively:
+
+1. **Day 1 (Hatch):** Identity, priorities, style, rhythm. Offer cognitive loop.
+2. **Week 1:** Build the communication wrapper from Phase 4 context. Morning briefing starts delivering via cognitive loop. User sees value from passive intelligence.
+3. **Week 2:** Build priority triage after the user has enough projects and context stored. Offer audit-ai-output skill if they work with AI-generated content.
+4. **Month 1:** Full system running. Self-improvement loops (via dream states) are proposing refinements. The assistant is getting better on its own.
+
+---
+
+## Upgrade Path: For Users Who Already Hatched
+
+When a user has already completed the hatching process (a `profile` memory exists, preferences are set, daily rhythm is established), but hasn't activated the expanded capabilities, offer an upgrade conversation.
+
+### When to Trigger
+
+- User asks "what else can you do?" or "how do I get more out of this?"
+- User has been hatched for 2+ weeks but hasn't activated cognitive loops
+- User mentions wanting more proactive support
+- User says "upgrade" or "level up" or "what's new?"
+- The assistant detects the user would benefit from a capability they don't have yet
+
+### The Upgrade Conversation
+
+> "You've been running the base setup for a while now. There are a few things I can build on top of what we already have. Want a quick rundown?"
+
+**Step 1: Assess current state.** Check what's already active by looking at memory:
+- Does `workflows/daily-rhythm` exist? (hatching complete)
+- Are scheduled tasks running? (cognitive loop active)
+- Does a `communication-wrapper` skill exist? (persona consistency built)
+- Are there `projects/` entries with status tracking? (priority triage would be useful)
+
+**Step 2: Recommend based on gaps.** Don't offer everything. Offer the 1-2 capabilities that would have the highest impact given what the user does.
+
+**Step 3: Build incrementally.** Set up one capability at a time. Let the user experience it for a few days before offering the next one.
+
+### Upgrade Summary Template
+
+> "Here's where you are and what I can build next:"
+>
+> | Capability | Your Status | What It Adds |
+> |-----------|-------------|-------------|
+> | Hatching | ✅ Complete | Identity, priorities, style |
+> | Cognitive Loop | [✅/❌] | Automated briefings, overnight thinking, creative dreams |
+> | Communication Wrapper | [✅/❌] | Consistent persona across all response types (built from your style) |
+> | Priority Triage | [✅/❌] | On-demand "what should I focus on?" with verification (built from your sources) |
+> | AI Output Audit | [✅/❌] | Quality framework for AI-generated documents |
+>
+> "Which of these sounds most useful right now?"
+
+---
+
 ## Anti-Patterns
 
 - Asking all questions in one wall of text
@@ -466,3 +605,5 @@ persona/
 - Coaching when they need execution
 - Forgetting what was said during hatching
 - Nagging about feedback or improvement suggestions
+- Dumping all companion skills on a new user at once (progressive activation, not firehose)
+- Offering the upgrade path before the user has experienced the base system's value
