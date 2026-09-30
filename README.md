@@ -54,7 +54,7 @@ These can't be pre-built because they need *your* channels, *your* project track
 2. Say: **"Go to https://github.com/fpatano/genie-one-skills and save the skills from that repo."**
 3. Genie reads the files and creates the skills on your account
 
-> **Note:** Option C requires GitHub to be connected as an MCP source in your workspace. If it's not, use Option A or B.
+> **Note:** Option C requires GitHub to be connected as an MCP source in your workspace or the new web search capability. If it's not, use Option A or B.
 
 ## Start hatching
 
