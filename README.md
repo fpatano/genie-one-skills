@@ -1,140 +1,54 @@
-# Genie One Skills
+# Cognitive OS for Genie One
 
-![Databricks Genie](https://www.databricks.com/sites/default/files/2026-04/newsroom-genie-card.png)
+A set of Genie One skills that turn a blank assistant into one that knows who you are, works on a schedule, and gets better every night.
 
-Personal skills for Databricks Genie that turn a blank assistant into a calibrated, always-on cognitive partner.
+Skills hold the method. Memory holds you. Nothing personal lives in these files, so you can install them as-is and hatch your own assistant.
 
-Three shareable skills. One onboards you through a conversation. One sets up automated briefings and overnight processing. One gives you a framework for auditing AI-generated documents. Together, they form a system that gets smarter over time.
+## What's in the box (v3, Cognitive OS 1.1.0)
 
-## What's in the box
+| Skill | What it does | When to use it |
+|-------|--------------|----------------|
+| `cos-hatching` | Onboarding conversation. Sets your profile, priorities, tone, rhythm, and writes the default memories every other skill reads | Day 1. Start here |
+| `cos-cognitive-loops` | Scheduled briefings, an 11pm thinking pass, optional 3am patterns, and a 4am self-improvement pass. Starts on a Light cadence of 4 tasks | After hatching |
+| `cos-comms-sweep` | "What did I miss?" Sweeps Gmail and Slack into Direct, Project, and Ambient tiers | Week 1 |
+| `cos-slack-dm-responder` | Reads your Slack DMs, researches the asks, drafts replies in your voice. Never sends on its own | Week 1, if Slack is connected |
+| `cos-project-status-sync` | Reconciles your project memories and tracker with what actually happened | Week 2 |
+| `cos-audit-ai-output` | Grades AI-written docs on what they claim to be, with human-reality checks for time, capacity, and org friction | Whenever you review AI output |
 
-| Skill | What it does |
-| --- | --- |
-| `hatching-onboarding` | Conversational setup. Learns who you are, names your assistant, calibrates tone, designs your daily rhythm. Takes 5-15 minutes. |
-| `cognitive-loop-system` | Three-layer automation. Daytime briefings, end-of-day synthesis, overnight creative processing. Runs on scheduled tasks while you sleep. |
-| `audit-ai-output` | Quality framework for AI-generated documents. Grades on declared scope, classifies findings by actionability, applies human-reality checks for time, capacity, and organizational friction. |
-
-Hatching gathers the context. The cognitive loop puts it to work 24/7. The audit framework keeps quality honest.
-
-## What hatching builds for you
-
-Beyond the three installable skills, the hatching process can **build two additional capabilities** personalized to your world:
-
-| Capability | Built from | What it does |
-| --- | --- | --- |
-| **Communication Wrapper** | Your Phase 4 style preferences | Classifies response types (casual, content production, analytical, instructional) and applies your specific tone rules, pet peeves, and persona consistently across everything. |
-| **Priority Triage** | Your Phase 3 priorities + Phase 5 sources | On-demand "what should I focus on next?" that cross-references your project tracker, calendar, email, and Slack. Verifies completion claims against actual activity. |
-
-These can't be pre-built because they need *your* channels, *your* project tracker, *your* manager's name, *your* style rules. The hatching skill teaches the assistant how to create them from your context.
-
-## Prerequisites
-
-- A Databricks workspace with Genie One access
-- Connected sources make it better: Google Calendar, Gmail, Slack, Google Drive. Not required, but the more you connect, the smarter the briefings get.
+Two more capabilities get built for you during hatching from templates, not installed: a communication wrapper (your voice rules) and a priority triage.
 
 ## Install
 
-### Option A: Paste directly
+**Option A: upload the files.** Download `cognitive-os/` (or `cognitive-os.zip` from the release). In Genie One, add each skill folder under your skills (each folder has a `SKILL.md`). Then open a new chat and say "hatch me."
 
-1. Open Genie in your Databricks workspace
-2. Say: **"I have a skill file to install. Here's the content."**
-3. Paste the contents of `Skills/SKILL (hatching).md`
-4. Say: **"Save that as a skill called hatching-onboarding."**
-5. Repeat for `cognitive-loop-system` and `audit-ai-output`
+**Option B: install a shared copy from Unity Catalog.** If someone on your team published these skills to a catalog and schema, open Customizations, then Skills, find the shared skills, and install each one. You need USE CATALOG, USE SCHEMA, and READ VOLUME on that schema.
 
-### Option B: Upload the files
+Then:
+1. Say "hatch me." It takes 3 to 15 minutes depending on how much you share.
+2. Say yes when it offers the loops. You'll start on Light: a morning brief, a day close, an 11pm pass, and a 4am self-review.
+3. After 3 to 5 days, tell it what's hitting and what's noise.
 
-1. Download the `SKILL.md` files from this repo
-2. Open Genie and upload them to the conversation
-3. Say: **"Save these as personal skills."**
+## Upgrading from v2 (`hatching-onboarding` + `cognitive-loop-system`)
 
-### Option C: Point Genie to this repo
+1. Keep your memories. Don't re-hatch from scratch.
+2. Install the six `cos-` skills.
+3. Say "run cos-cognitive-loops Step 0." It checks your memory contract and writes anything missing, including the new `preferences/chat-memory-rules`.
+4. Ask it to update your existing scheduled tasks from the new prompts. Don't create a second set.
+5. Turn off the old v2 skills so two versions don't both trigger.
 
-1. Open Genie
-2. Say: **"Go to https://github.com/fpatano/genie-one-skills and save the skills from that repo."**
-3. Genie reads the files and creates the skills on your account
+The v2 skills stay in `Skills/` for now so existing links keep working. They won't get updates.
 
-> **Note:** Option C requires GitHub to be connected as an MCP source in your workspace or the new web search capability. If it's not, use Option A or B.
+## How it works
 
-## Start hatching
+Sources (calendar, email, Slack, docs, meeting notes) feed memory. The loops read memory and sources on a schedule, filter for what changed that matters, and act: a briefing, a draft, a question. Every night the 4am pass reviews its own misses and tunes the memories.
 
-Once the skills are saved, start a new conversation and say:
+Design rules:
+- A skill is a reusable workflow, not a fancy prompt.
+- Methodology in skills, personal context in memory.
+- Silence is a valid result.
+- A rule only changes behavior if it lives where the run reads it. Chat rules go in a broad memory; loop rules go in the task prompt.
+- Start small. Earn the next cadence.
 
-> **"Let's hatch."**
+## Release notes
 
-The assistant walks you through six phases:
-
-1. **First Contact** — decides whether to set up now or later
-2. **Identity** — learns your name, role, team, timezone
-3. **Priorities** — current projects, goals, blockers
-4. **Working Style** — communication tone, format, persona name
-5. **Daily Rhythm** — morning briefings, meeting prep, end-of-day wraps
-6. **The Hatch** — activates your configured assistant
-
-The whole thing is conversational. Answer as much or as little as you want.
-
-## Set up the cognitive loop
-
-After hatching, the assistant offers to activate the cognitive loop. You can also trigger it later:
-
-> **"Set up my cognitive loop."**
-
-Three layers run on a schedule:
-
-| Layer | When | What |
-| --- | --- | --- |
-| **Briefings** | During your workday (hourly or less) | Calendar, email, Slack, approaching deadlines. Incremental updates, not recaps. |
-| **Thinking** | End of day (e.g. 11pm) | Catches loose ends, unresolved threads, commitments nobody tracked. |
-| **Dreaming** | Overnight (e.g. 3am, 5am) | Pattern recognition, emerging themes, creative provocations. Ready when you wake up. |
-
-You pick the cadence: full (12 tasks/day), medium (7), light (4), or custom.
-
-## Upgrade path
-
-Already hatched but want more? Say:
-
-> **"What else can you do?"** or **"Level up."**
-
-The assistant assesses what's active and recommends the highest-impact next capability to build. It introduces them one at a time so you can experience each before adding more.
-
-## How it works under the hood
-
-All skills are plain Markdown files stored as Databricks personal skills. No code, no packages, no dependencies.
-
-- Skills live in your workspace under your user directory
-- Each skill is a `SKILL.md` file with YAML frontmatter and instructions
-- Genie loads them automatically when your question matches the skill's trigger
-- All your personal context (identity, preferences, projects) is stored in Genie's memory system, not in the skill files
-- The skills are the methodology. Your data stays yours.
-
-## Sharing and publishing
-
-These three skills are designed to be shared as-is. The communication wrapper and priority triage capabilities are built per-user during hatching because they require personal context.
-
-**Current sharing options:**
-- This GitHub repo (copy/paste, upload, or direct repo read)
-- Manual file sharing (they're just Markdown)
-
-**Coming soon:**
-- Unity Gateway Skills (Beta) lets you publish skills to Unity Catalog as governed assets with permissions. Once GA, that becomes the formal distribution channel.
-
-## FAQ
-
-**Do I need all three skills?**
-Start with `hatching-onboarding`. It works standalone. The cognitive loop and audit framework build on top of it but aren't required.
-
-**Can I share my hatched assistant with someone?**
-The skills are shareable (that's this repo). The personal context is not. Each person hatches their own instance.
-
-**What about the communication wrapper and priority triage?**
-Those get built during hatching, personalized to your world. The hatching skill teaches the assistant how to create them from your specific context.
-
-**What if I skip questions during hatching?**
-The assistant moves on and fills gaps organically over the next few days.
-
-**Does this work on Databricks Free Edition?**
-Yes. Connected sources depend on what OAuth connections you've configured, but the skills themselves work on any Genie instance.
-
-## License
-
-MIT
+See `CHANGELOG.md`.
