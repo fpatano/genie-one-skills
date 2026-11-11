@@ -4,6 +4,8 @@ A set of Genie One skills that turn a blank assistant into one that knows who yo
 
 Skills hold the method. Memory holds you. Nothing personal lives in these files, so you can install them as-is and hatch your own assistant.
 
+![Databricks Genie](https://www.databricks.com/sites/default/files/2026-04/newsroom-genie-card.png)
+
 ## What's in the box (v3, Cognitive OS 1.1.0)
 
 | Skill | What it does | When to use it |
